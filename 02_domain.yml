@@ -1,0 +1,23 @@
+---
+- name: Create Group and user
+  hosts: domaincontroller
+  vars:
+    domain: ansible.local
+
+  tasks:
+    - name: Create Group
+      microsoft.ad.group:
+        name: corp
+        scope: global
+        state: present
+
+    - name: Create user
+      microsoft.ad.user:
+        name: basim
+        firstname: Bart
+        surname: Simpson
+        password: P@ssw0rd!
+        state: present
+        groups:
+          add:
+            - corp
